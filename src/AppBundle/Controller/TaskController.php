@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 class TaskController extends Controller
 {
     /**
-     * Lists all task entities.
+     * Lists all task entities of user.
      *
      * @Route("/", name="task_index")
      * @Method("GET")
@@ -27,6 +27,23 @@ class TaskController extends Controller
 
         return $this->render('task/index.html.twig', array(
             'tasks' => $tasks,
+        ));
+    }
+    
+    /**
+     * Lists all task entities for user for Day.
+     *
+     * @Route("/ForDay/{day}", name="tasks_for_day_index")
+     * @Method("GET")
+     */
+    public function indexTasksForDayAction($day)
+    {
+        $user = $this->getUser();
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findBy(array('user'=> $user, 'completionDate' => $day));
+
+        return $this->render('task/index.html.twig', array(
+            'tasks' => $tasks,
+            'day'=> $day
         ));
     }
 

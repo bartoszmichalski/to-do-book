@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Tasks list</h1>
-
+    <h1>Tasks list
+        {% if day is defined %}for {{ day|date("Y/m/d") }}{% endif %}
+    </h1>
     <table>
         <thead>
             <tr>
