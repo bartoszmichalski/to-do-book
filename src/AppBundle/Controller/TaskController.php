@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Task controller.
@@ -150,5 +152,26 @@ class TaskController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    
+    /**
+     * Deletes a task entity.
+     *
+     * @Route("/api/new", name="task_api_new")
+     * @Method({"POST","GET"})
+     */
+    public function newTaskAction(Request $request)
+    {
+        $task = new Task;
+        $task->setDescription($request->request->get('task'));
+        $task->setCompletionDate(strtotime($request->request->get('date')));
+        $task->setCreationDate(time());
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(1);
+        $task->setUser($user);
+        $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+        echo(json_encode($task));
+        return new Response('ok');
     }
 }
