@@ -155,7 +155,7 @@ class TaskController extends Controller
     }
     
     /**
-     * Deletes a task entity.
+     * Creates new Task from API.
      *
      * @Route("/api/new", name="task_api_new")
      * @Method({"POST","GET"})
@@ -172,6 +172,6 @@ class TaskController extends Controller
             $em->persist($task);
             $em->flush();
         echo(json_encode($task));
-        return new Response('ok');
+        return new Response('');
     }
 }
