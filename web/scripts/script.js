@@ -13,9 +13,19 @@ jQuery(document).ready(function () {
         })
         .done(function (response){
             var tasks = JSON.parse(response);
-            console.log(tasks);
-        } );
+            writeTasks(tasks);
+        });
        
     });
-            
+    function writeTasks(tasks) {
+        var UL = jQuery('ul');
+        UL.children().remove();
+        var tasksArray = Array.from(tasks);
+        console.log(tasksArray);
+        tasksArray.forEach(function(task){     
+            console.log(task);
+            var newLi = jQuery('<li>'+task.description+'</li>');
+            newLi.appendTo(UL);            
+        });
+    } 
 });
