@@ -155,12 +155,10 @@ class Task implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'task' => [
                 'id' => $this->getId(),
                 'description' => $this->getDescription(),
                 'creationDate' => $this->getCreationDate(),
                 'completionDate' => $this->getCompletionDate()
-            ]
         ];
     }
 }

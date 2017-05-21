@@ -20,12 +20,9 @@ jQuery(document).ready(function () {
     function writeTasks(tasks) {
         var UL = jQuery('ul');
         UL.children().remove();
-        var tasksArray = Array.from(tasks);
-        console.log(tasksArray);
-        tasksArray.forEach(function(task){     
-            console.log(task);
-            var newLi = jQuery('<li>'+task.description+'</li>');
+        if (tasks !== null) {
+            var newLi = jQuery('<li>'+tasks.description+' '+ tasks.creationDate+'</li>');
             newLi.appendTo(UL);            
-        });
+        }
     } 
 });
