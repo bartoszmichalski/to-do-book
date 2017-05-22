@@ -21,7 +21,8 @@ jQuery(document).ready(function () {
         var UL = jQuery('ul');
         UL.children().remove();
         if (tasks !== null) {
-            var newLi = jQuery('<li>'+tasks.description+' '+ tasks.creationDate+'</li>');
+            var creationDate = new Date(tasks.creationDate * 1000);
+            var newLi = jQuery('<li>'+tasks.description+' '+ creationDate.toDateString()+'</li>');
             newLi.appendTo(UL);            
         }
     } 
