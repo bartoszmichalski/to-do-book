@@ -22,7 +22,8 @@ jQuery(document).ready(function () {
         UL.children().remove();
         if (tasks !== null) {
             var creationDate = new Date(tasks.creationDate * 1000);
-            var newLi = jQuery('<li>'+tasks.description+' '+ creationDate.toDateString()+'</li>');
+            var completionDate = new Date(tasks.completionDate * 1000);
+            var newLi = jQuery('<li>'+tasks.description+' '+ creationDate.toLocaleDateString('pl-PL')+' '+ completionDate.toLocaleDateString('pl-PL')+'</li>');
             newLi.appendTo(UL);            
         }
     } 
