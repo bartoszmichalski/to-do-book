@@ -18,13 +18,13 @@ jQuery(document).ready(function () {
        
     });
     function writeTasks(tasks) {
-        var UL = jQuery('ul');
-        UL.children().remove();
+        var table = jQuery('table');
+        table.children().remove();
         if (tasks !== null) {
             var creationDate = new Date(tasks.creationDate * 1000);
             var completionDate = new Date(tasks.completionDate * 1000);
-            var newLi = jQuery('<li>'+tasks.description+' '+ creationDate.toLocaleDateString('pl-PL')+' '+ completionDate.toLocaleDateString('pl-PL')+'</li>');
-            newLi.appendTo(UL);            
+            var newLi = jQuery('<td>'+tasks.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>');
+            newLi.appendTo(table);            
         }
     } 
 });
