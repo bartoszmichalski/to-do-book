@@ -24,9 +24,12 @@ jQuery(document).ready(function () {
             tasks.forEach(function(task){
                 var creationDate = new Date(task.creationDate * 1000);
                 var completionDate = new Date(task.completionDate * 1000);
-                var taskRow = jQuery('<tr id='+task.id+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td></tr>');
+                var taskRow = jQuery('<tr id='+task.id+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons()+'</tr>');
                 taskRow.appendTo(tbody);
             });
         }
-    } 
+    }
+    function writeActionButtons(){
+        return '<td><button class="btn btn-primary "  name="delete" type="submit">Delete task</button></td>';
+    }
 });
