@@ -4,8 +4,7 @@ jQuery(document).ready(function () {
         method: 'GET'
     })
     .done(function(response){
-        var tasks = JSON.parse(response);
-        writeTasks(tasks);
+        writeTasks(JSON.parse(response));
     });    
     jQuery('.js-datepicker').datepicker({
         format: "dd.mm.yyyy",
@@ -20,8 +19,7 @@ jQuery(document).ready(function () {
             data: jQuery(this).serialize()
         })
         .done(function (response){
-            var tasks = JSON.parse(response);
-            writeTasks(tasks);
+            writeTasks(JSON.parse(response));
         });
        
     });
