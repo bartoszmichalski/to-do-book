@@ -1,4 +1,12 @@
 jQuery(document).ready(function () {
+    jQuery.ajax({
+        url:'http://localhost:8000/task/api/getall',
+        method: 'GET'
+    })
+    .done(function(response){
+        var tasks = JSON.parse(response);
+        writeTasks(tasks);
+    });    
     jQuery('.js-datepicker').datepicker({
         format: "dd.mm.yyyy",
         todayHighlight: true,
@@ -24,12 +32,12 @@ jQuery(document).ready(function () {
             tasks.forEach(function(task){
                 var creationDate = new Date(task.creationDate * 1000);
                 var completionDate = new Date(task.completionDate * 1000);
-                var taskRow = jQuery('<tr id='+task.id+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons()+'</tr>');
+                var taskRow = jQuery('<tr id='+task.id+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons()+'');
                 taskRow.appendTo(tbody);
             });
         }
     }
     function writeActionButtons(){
-        return '<td><button class="btn btn-primary "  name="delete" type="submit">Delete task</button></td>';
+        return '<td><button class="btn btn-primary "  name="delete" type="submit">Done</button></td><td><button class="btn btn-primary "  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
 });

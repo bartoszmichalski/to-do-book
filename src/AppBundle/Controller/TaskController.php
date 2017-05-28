@@ -175,4 +175,16 @@ class TaskController extends Controller
         echo(json_encode($allTasks));
         return new Response('');
     }
+     /**
+     * Get all Tasks from API.
+     *
+     * @Route("/api/getall", name="task_api_get_all")
+     * @Method({"POST","GET"})
+     */
+    public function getAllTaskAction(Request $request)
+    {
+    $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findAll();
+        echo(json_encode($allTasks));
+        return new Response('');
+    }
 }
