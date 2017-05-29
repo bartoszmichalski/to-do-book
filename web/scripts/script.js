@@ -20,8 +20,7 @@ jQuery(document).ready(function () {
         })
         .done(function (response){
             writeTasks(JSON.parse(response));
-        });
-       
+        });       
     });
     function writeTasks(tasks) {
         var tbody = jQuery('tbody');

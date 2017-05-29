@@ -44,6 +44,13 @@ class Task implements JsonSerializable
     private $completionDate;
     
     /**
+     * @var tinyint
+     *
+     * @ORM\Column(name="done", type="boolean")
+     */
+    private $done;
+    
+    /**
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="tasks")
      */
@@ -160,5 +167,28 @@ class Task implements JsonSerializable
                 'creationDate' => $this->getCreationDate(),
                 'completionDate' => $this->getCompletionDate()
         ];
+    }
+
+    /**
+     * Set done
+     *
+     * @param boolean $done
+     * @return Task
+     */
+    public function setDone($done)
+    {
+        $this->done = $done;
+
+        return $this;
+    }
+
+    /**
+     * Get done
+     *
+     * @return boolean 
+     */
+    public function getDone()
+    {
+        return $this->done;
     }
 }

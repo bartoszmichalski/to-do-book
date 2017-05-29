@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * Task
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TaskRepository")
  */
-class Task
+class Task implements JsonSerializable
 {
     /**
      * @var int
@@ -41,6 +42,13 @@ class Task
      * @ORM\Column(name="completionDate", type="integer")
      */
     private $completionDate;
+    
+    /**
+     * @var tinyint
+     *
+     * @ORM\Column(name="done", type="boolean")
+     */
+    private $done;
     
     /**
      *
@@ -126,5 +134,38 @@ class Task
     public function getCompletionDate()
     {
         return $this->completionDate;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return Task
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    
+    public function jsonSerialize()
+    {
+        return [
+                'id' => $this->getId(),
+                'description' => $this->getDescription(),
+                'creationDate' => $this->getCreationDate(),
+                'completionDate' => $this->getCompletionDate()
+        ];
     }
 }
