@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
         jQuery.ajax({
             url:'http://localhost:8000/task/api/done',
             method: 'PUT',
-            data: {'id':id}
+            data: {id}
         })
         .done(function(response){
             writeTasks(JSON.parse(response));
