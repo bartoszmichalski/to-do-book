@@ -187,4 +187,23 @@ class TaskController extends Controller
         echo(json_encode($allTasks));
         return new Response('');
     }
+    
+    /**
+     * Mark task as done from API.
+     *
+     * @Route("/api/done", name="task_api_done")
+     */
+    public function doneTaskAction(Request $request)
+    {
+        parse_str(file_get_contents("php://input"), $put_vars);
+        $id = $put_vars['id'];
+        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($id);
+        $task->setDone(true);
+        $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findAll();
+        echo(json_encode($allTasks));
+        return new Response('');
+    }
 }

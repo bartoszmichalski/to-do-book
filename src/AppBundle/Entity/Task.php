@@ -56,6 +56,10 @@ class Task implements JsonSerializable
      */
     private $user;
 
+    public function __construct()
+    {
+        $this->done = 0;
+    }
 
     /**
      * Get id
