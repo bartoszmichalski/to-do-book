@@ -6,14 +6,13 @@ jQuery(document).ready(function () {
     .done(function(response){
         writeTasks(JSON.parse(response));
     }); 
-    jQuery(document).on('click', '.deltask', function(event){
+    jQuery(document).on('click', '.taskdone', function(event){
         event.preventDefault();
         event.stopImmediatePropagation();
-        var id = $(this).parent().parent().parent().attr('id');
         jQuery.ajax({
             url:'http://localhost:8000/task/api/done',
             method: 'PUT',
-            data: {'id':id}
+            data: {'id':$(this).parent().parent().parent().attr('id')}
         })
         .done(function(response){
             writeTasks(JSON.parse(response));
@@ -48,6 +47,6 @@ jQuery(document).ready(function () {
         }
     }
     function writeActionButtons(id){
-        return '<td><form><button class="btn btn-primary deltask" type="submit">Done</button></form></td><td><button class="btn btn-primary "  name="changeDate" type="submit">Change Completion Date</button></td>';
+        return '<td><form><button class="btn btn-primary taskdone" type="submit">Done</button></form></td><td><button class="btn btn-primary "  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
 });

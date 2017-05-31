@@ -195,8 +195,7 @@ class TaskController extends Controller
      */
     public function doneTaskAction(Request $request)
     {
-        $put_str = $this->getRequest()->getContent();
-        parse_str($put_str, $_PUT);
+        parse_str($this->getRequest()->getContent(), $_PUT);
         if (isset($_PUT['id'])){
             $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($_PUT['id']);
             $task->setDone(true);
