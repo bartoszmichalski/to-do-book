@@ -195,14 +195,14 @@ class TaskController extends Controller
      */
     public function doneTaskAction(Request $request)
     {
-//        parse_str(file_get_contents("php://input"), $put_vars);
-//        $id = $put_vars['id'];
-        $id = 2;
-        $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($id);
-        $task->setDone(true);
-        $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
+        $put_str = $this->getRequest()->getContent();
+        parse_str($put_str, $_PUT);
+        if (isset($_PUT['id'])){
+            $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($_PUT['id']);
+            $task->setDone(true);
+            $em = $this->getDoctrine()->getManager();
+                $em->flush();
+        }
         $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0));
         echo(json_encode($allTasks));
         return new Response('');

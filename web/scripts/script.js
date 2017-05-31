@@ -10,11 +10,10 @@ jQuery(document).ready(function () {
         event.preventDefault();
         event.stopImmediatePropagation();
         var id = $(this).parent().parent().parent().attr('id');
-        console.log(id);
         jQuery.ajax({
             url:'http://localhost:8000/task/api/done',
             method: 'PUT',
-            data: {id}
+            data: {'id':id}
         })
         .done(function(response){
             writeTasks(JSON.parse(response));
