@@ -183,7 +183,7 @@ class TaskController extends Controller
      */
     public function getAllTaskAction(Request $request)
     {
-    $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0));
+    $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         return new Response('');
     }
@@ -202,7 +202,7 @@ class TaskController extends Controller
             $em = $this->getDoctrine()->getManager();
                 $em->flush();
         }
-        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0));
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         return new Response('');
     }
