@@ -19,16 +19,20 @@ jQuery(document).ready(function () {
         });
     });
     jQuery(document).on('click', '.changeDate', function(event){
+        jQuery('.changeDate').children().remove();
+        var dateInput = writeChangeDateInput();
+        $(this).children().remove();
+        $(this).append(dateInput);
         event.preventDefault();
         event.stopImmediatePropagation();
-        jQuery.ajax({
-            url:'http://localhost:8000/task/api/done',
-            method: 'PUT',
-            data: {'id':$(this).parent().parent().attr('id')}
-        })
-        .done(function(response){
-            writeTasks(JSON.parse(response));
-        });
+//        jQuery.ajax({
+//            url:'http://localhost:8000/task/api/done',
+//            method: 'PUT',
+//            data: {'id':$(this).parent().parent().attr('id')}
+//        })
+//        .done(function(response){
+//            writeTasks(JSON.parse(response));
+//        });
     });
     jQuery('.js-datepicker').datepicker({
         format: "dd.mm.yyyy",
@@ -60,5 +64,8 @@ jQuery(document).ready(function () {
     }
     function writeActionButtons(id){
         return '<td><button class="btn btn-primary taskdone" type="submit">Done</button></td><td><button class="btn btn-primary changeDate"  name="changeDate" type="submit">Change Completion Date</button></td>';
+    }
+    function writeChangeDateInput(){
+        return '<div class="form-group "><label class="control-label requiredField" for="date">Completion Date<span class="asteriskField">*</span></label><input class="form-control js-datepicker" id="newDate" name="newDate" placeholder="DD/MM/YYYY" type="text"/></div>';
     }
 });
