@@ -171,7 +171,7 @@ class TaskController extends Controller
         $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
-        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findAll();
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         return new Response('');
     }

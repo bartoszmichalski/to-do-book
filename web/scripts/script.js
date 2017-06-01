@@ -12,7 +12,19 @@ jQuery(document).ready(function () {
         jQuery.ajax({
             url:'http://localhost:8000/task/api/done',
             method: 'PUT',
-            data: {'id':$(this).parent().parent().parent().attr('id')}
+            data: {'id':$(this).parent().parent().attr('id')}
+        })
+        .done(function(response){
+            writeTasks(JSON.parse(response));
+        });
+    });
+    jQuery(document).on('click', '.changeDate', function(event){
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        jQuery.ajax({
+            url:'http://localhost:8000/task/api/done',
+            method: 'PUT',
+            data: {'id':$(this).parent().parent().attr('id')}
         })
         .done(function(response){
             writeTasks(JSON.parse(response));
@@ -47,6 +59,6 @@ jQuery(document).ready(function () {
         }
     }
     function writeActionButtons(id){
-        return '<td><form><button class="btn btn-primary taskdone" type="submit">Done</button></form></td><td><button class="btn btn-primary "  name="changeDate" type="submit">Change Completion Date</button></td>';
+        return '<td><button class="btn btn-primary taskdone" type="submit">Done</button></td><td><button class="btn btn-primary changeDate"  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
 });
