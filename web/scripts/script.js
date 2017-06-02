@@ -22,7 +22,8 @@ jQuery(document).ready(function () {
         jQuery('.changeDate').children().remove();
         var dateInput = writeChangeDateInput();
         $(this).children().remove();
-        $(this).append(dateInput);
+        $(this).parent().append(dateInput);
+        $(this).hide();
         event.preventDefault();
         event.stopImmediatePropagation();
 //        jQuery.ajax({
