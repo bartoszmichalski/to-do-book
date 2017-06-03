@@ -206,4 +206,23 @@ class TaskController extends Controller
         echo(json_encode($allTasks));
         return new Response('');
     }
+    
+    /**
+     * Mark task as done from API.
+     *
+     * @Route("/api/changedate", name="task_api_changedate")
+     */
+        public function changeDateTaskAction(Request $request)
+    {
+        parse_str($this->getRequest()->getContent(), $_PUT);
+        if (isset($_PUT['id']) && isset($_PUT['date'])){
+            $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($_PUT['id']);
+            $task->setCompletionDate(strtotime($_PUT['date']));
+            $em = $this->getDoctrine()->getManager();
+                $em->flush();
+        }
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
+        echo(json_encode($allTasks));
+        return new Response('');
+    }
 }

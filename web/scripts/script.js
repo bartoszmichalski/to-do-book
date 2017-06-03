@@ -27,6 +27,7 @@ jQuery(document).ready(function () {
         event.stopImmediatePropagation();
         jQuery(document).on('click', '.change', function(event){
             var newDate = $('#newDate').val();
+            console.log(newDate);
             jQuery.ajax({
                 url:'http://localhost:8000/task/api/changedate',
                 method: 'PUT',
