@@ -25,14 +25,17 @@ jQuery(document).ready(function () {
         $(this).parent().append(writeChangeDateInput());
         event.preventDefault();
         event.stopImmediatePropagation();
-//        jQuery.ajax({
-//            url:'http://localhost:8000/task/api/done',
-//            method: 'PUT',
-//            data: {'id':$(this).parent().parent().attr('id')}
-//        })
-//        .done(function(response){
-//            writeTasks(JSON.parse(response));
-//        });
+        jQuery(document).on('click', '.change', function(event){
+            var newDate = $('#newDate').val();
+            jQuery.ajax({
+                url:'http://localhost:8000/task/api/changedate',
+                method: 'PUT',
+                data: {'id':$(this).parent().parent().parent().attr('id'), 'date': newDate}
+            })
+            .done(function(response){
+                writeTasks(JSON.parse(response));
+            });
+        });
     });
     jQuery('.js-datepicker').datepicker({
         format: "dd.mm.yyyy",
