@@ -19,11 +19,10 @@ jQuery(document).ready(function () {
         });
     });
     jQuery(document).on('click', '.changeDate', function(event){
-        jQuery('.changeDate').children().remove();
-        var dateInput = writeChangeDateInput();
-        $(this).children().remove();
-        $(this).parent().append(dateInput);
+        $('.changeDate').show();
         $(this).hide();
+        $('td div').remove();
+        $(this).parent().append(writeChangeDateInput());
         event.preventDefault();
         event.stopImmediatePropagation();
 //        jQuery.ajax({
@@ -67,6 +66,6 @@ jQuery(document).ready(function () {
         return '<td><button class="btn btn-primary taskdone" type="submit">Done</button></td><td><button class="btn btn-primary changeDate"  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
     function writeChangeDateInput(){
-        return '<div class="form-group "><label class="control-label requiredField" for="date">Completion Date<span class="asteriskField">*</span></label><input class="form-control js-datepicker" id="newDate" name="newDate" placeholder="DD/MM/YYYY" type="text"/></div>';
+        return '<div class="form-group "><label class="control-label requiredField" for="newDate">Completion Date<span class="asteriskField">*</span><input class="form-control js-datepicker" id="newDate" name="newDate" placeholder="DD/MM/YYYY" type="text"/></label><button class="btn btn-primary change"  name="change" type="submit">Change</button></div>';
     }
 });
