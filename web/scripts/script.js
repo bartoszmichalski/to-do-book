@@ -1,4 +1,5 @@
 jQuery(document).ready(function () {
+//    listenDatapicker();
     jQuery.ajax({
         url:'http://localhost:8000/task/api/getall',
         method: 'GET'
@@ -25,9 +26,9 @@ jQuery(document).ready(function () {
         $(this).parent().append(writeChangeDateInput());
         event.preventDefault();
         event.stopImmediatePropagation();
+        listenDatapicker();
         jQuery(document).on('click', '.change', function(event){
             var newDate = $('#newDate').val();
-            console.log(newDate);
             jQuery.ajax({
                 url:'http://localhost:8000/task/api/changedate',
                 method: 'PUT',
@@ -37,11 +38,6 @@ jQuery(document).ready(function () {
                 writeTasks(JSON.parse(response));
             });
         });
-    });
-    jQuery('.js-datepicker').datepicker({
-        format: "dd.mm.yyyy",
-        todayHighlight: true,
-        autoclose: true
     });
     jQuery('#newBook').on('submit', function (event){
         event.preventDefault();
@@ -65,11 +61,19 @@ jQuery(document).ready(function () {
                 taskRow.appendTo(tbody);
             });
         }
+        listenDatapicker();
     }
     function writeActionButtons(id){
         return '<td><button class="btn btn-primary taskdone" type="submit">Done</button></td><td><button class="btn btn-primary changeDate"  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
     function writeChangeDateInput(){
         return '<div class="form-group "><label class="control-label requiredField" for="newDate">Completion Date<span class="asteriskField">*</span><input class="form-control js-datepicker" id="newDate" name="newDate" placeholder="DD/MM/YYYY" type="text"/></label><button class="btn btn-primary change"  name="change" type="submit">Change</button></div>';
+    }
+    function listenDatapicker(){
+        jQuery('.js-datepicker').datepicker({
+                    format: "dd.mm.yyyy",
+                    todayHighlight: true,
+                    autoclose: true
+        });
     }
 });
