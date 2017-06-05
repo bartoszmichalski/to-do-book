@@ -3,8 +3,7 @@ jQuery(document).ready(function () {
     $('#datepicker').on('changeDate', function() {
         var tasksDate = $('#my_hidden_input').val(
             $('#datepicker').datepicker('getFormattedDate')
-        );
-        
+        );       
     });
     jQuery.ajax({
         url:'http://localhost:8000/task/api/getall',
