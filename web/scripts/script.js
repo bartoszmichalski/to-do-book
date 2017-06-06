@@ -1,9 +1,19 @@
 jQuery(document).ready(function () {
-    $('#datepicker').datepicker();
-    $('#datepicker').on('changeDate', function() {
-        var tasksDate = $('#my_hidden_input').val(
-            $('#datepicker').datepicker('getFormattedDate')
-        );       
+    var headcalender = $('.headcalender#datepicker').datepicker({
+        format: 'dd/mm/yyyy'
+    });
+    headcalender.on('changeDate', function() {
+        $('#date_hidden_input').val(
+            headcalender.datepicker('getFormattedDate')
+        );
+        jQuery.ajax({
+                url:'http://localhost:8000/task/api/get',
+                method: 'GET',
+                data: {'date': $('#date_hidden_input').val()}
+            })
+            .done(function(response){
+                writeTasks(JSON.parse(response));
+            });
     });
     jQuery.ajax({
         url:'http://localhost:8000/task/api/getall',
