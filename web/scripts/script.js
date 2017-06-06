@@ -66,7 +66,7 @@ jQuery(document).ready(function () {
         });       
     });
     function writeTasks(tasks) {
-        var tbody = jQuery('tbody');
+        var tbody = jQuery('#tasklist tbody');
         tbody.children().remove();
         if (tasks !== null) {
             tasks.forEach(function(task){
