@@ -1,10 +1,10 @@
 jQuery(document).ready(function () {
-    var headcalender = $('.headcalender#datepicker').datepicker({
+    var calendar = $('#datepicker').datepicker({
         format: 'dd/mm/yyyy'
     });
-    headcalender.on('changeDate', function() {
+    calendar.on('changeDate', function() {
         $('#date_hidden_input').val(
-            headcalender.datepicker('getFormattedDate')
+            calendar.datepicker('getFormattedDate')
         );
         jQuery.ajax({
                 url:'http://localhost:8000/task/api/get',
