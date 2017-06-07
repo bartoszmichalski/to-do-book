@@ -11,8 +11,6 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" media="screen"/>
     </head>
     <body>
-    <div class="headcalender" id="datepicker"></div>
-            <input type="hidden" id="date_hidden_input">
     <div class="bootstrap-iso">
      <div class="container-fluid">
       <div class="row">
@@ -48,19 +46,22 @@
       </div>
      </div>
     </div>
-        <div>
-            <table id="tasklist" class="table table-hover">
-                <thead>
-                    <th>Task</th>
-                    <th>Creation Date</th>
-                    <th>Completion Date</th>
-                    <th colspan="2">Actions</th>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-        </div>
+    <div class="headcalender" id="datepicker">
+    </div>
+    <input type="hidden" id="date_hidden_input">
+    <div>
+        <table id="tasklist" class="table table-hover">
+            <thead>
+                <th>Task</th>
+                <th>Creation Date</th>
+                <th>Completion Date</th>
+                <th colspan="2">Actions</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
