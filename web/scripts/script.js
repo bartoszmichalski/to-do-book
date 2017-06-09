@@ -1,6 +1,7 @@
 jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
-        format: 'dd/mm/yyyy'
+        format: 'dd/mm/yyyy',
+        todayHighlight: true
     });
     calendar.on('changeDate', function() {
         $('#date_hidden_input').val(
