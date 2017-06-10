@@ -184,7 +184,7 @@ class TaskController extends Controller
      */
     public function getTaskAction(Request $request)
     {
-        $date = strtotime($request->query->get('date'));
+        $date = $request->query->get('date');
         $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0,  'completionDate' => $date), array('completionDate' => 'ASC'));
         echo(json_encode($tasks));
         return new Response('');
@@ -197,7 +197,7 @@ class TaskController extends Controller
      * @Route("/api/getall", name="task_api_get_all ")
      * @Method({"POST","GET"})
      */
-    public function getAllTaskAction($date = null)
+    public function getAllTaskAction()
     {
         $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));       
         echo(json_encode($tasks));

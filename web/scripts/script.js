@@ -1,16 +1,17 @@
 jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
-        format: 'dd/mm/yyyy',
+        format: 'dd-mm-yyyy',
         todayHighlight: true
     });
     calendar.on('changeDate', function() {
-        $('#date_hidden_input').val(
-            calendar.datepicker('getFormattedDate')
+        var date = $('#date_hidden_input').val(
+            calendar.datepicker('getDate')
         );
+        var datetimestamp = Date.parse(date.val())/1000;
         jQuery.ajax({
                 url:'http://localhost:8000/task/api/get',
                 method: 'GET',
-                data: {'date': $('#date_hidden_input').val()}
+                data: {'date': datetimestamp}
             })
             .done(function(response){
                 writeTasks(JSON.parse(response));
