@@ -161,16 +161,18 @@ class TaskController extends Controller
      * @Method({"POST","GET"})
      */
     public function newTaskAction(Request $request)
-    {
-        $task = new Task;
-        $task->setDescription($request->request->get('task'));
-        $task->setCompletionDate(strtotime($request->request->get('date')));
-        $task->setCreationDate(time());
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(1);
-        $task->setUser($user);
-        $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
+    {   
+        if ($request->request->get('task') != '' && $request->request->get('date') != '') {
+            $task = new Task;
+            $task->setDescription($request->request->get('task'));
+            $task->setCompletionDate(strtotime($request->request->get('date')));
+            $task->setCreationDate(time());
+            $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(1);
+            $task->setUser($user);
+            $em = $this->getDoctrine()->getManager();
+                $em->persist($task);
+                $em->flush();
+        }
         $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         return new Response('');
