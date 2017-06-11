@@ -56,10 +56,12 @@ jQuery(document).ready(function () {
     });
     jQuery('#newBook').on('submit', function (event){
         event.preventDefault();
+        var newForm = jQuery(this).serialize();
+        jQuery('input').val('');
         jQuery.ajax({
             url: 'http://localhost:8000/task/api/new',
             method: 'POST',
-            data: jQuery(this).serialize()
+            data: newForm
         })
         .done(function (response){
             writeTasks(JSON.parse(response));
