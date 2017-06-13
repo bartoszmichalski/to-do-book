@@ -25,10 +25,17 @@ jQuery(document).ready(function () {
     jQuery(document).on('click', '.taskdone', function(event){
         event.preventDefault();
         event.stopImmediatePropagation();
+        var taskId = $(this).parent().parent().attr('id');
+        $(this).closest('tr')
+            .children('td')
+            .animate({ paddingBottom: 0, paddingTop: 0 })
+            .wrapInner('<div />')
+            .children()
+            .slideUp( function() { $(this).closest('tr').remove(); });
         jQuery.ajax({
             url:'http://localhost:8000/task/api/done',
             method: 'PUT',
-            data: {'id':$(this).parent().parent().attr('id')}
+            data: {'id':taskId}
         })
         .done(function(response){
             writeTasks(JSON.parse(response));
