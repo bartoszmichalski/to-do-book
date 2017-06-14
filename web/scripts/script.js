@@ -50,8 +50,8 @@ jQuery(document).ready(function () {
         event.stopImmediatePropagation();
         listenDatapicker();
         jQuery(document).on('click', '.change', function(event){
-            var newDate = $('#newDate').val();
-            if (newDate !== '') {
+            var newDate = Date.parse($('#newDate').val())/1000;
+            if (typeof newDate === 'number' && newDate > 1 ) {
                 jQuery.ajax({
                     url:'http://localhost:8000/task/api/changedate',
                     method: 'PUT',
@@ -66,12 +66,12 @@ jQuery(document).ready(function () {
     });
     jQuery('#newBook').on('submit', function (event){
         event.preventDefault();
-        var newForm = jQuery(this).serialize();
+        var newDateForm = jQuery(this).serialize();
         jQuery('input').val('');
         jQuery.ajax({
             url: 'http://localhost:8000/task/api/new',
             method: 'POST',
-            data: newForm
+            data: newDateForm
         })
         .done(function (response){
             writeTasks(JSON.parse(response));
@@ -98,7 +98,6 @@ jQuery(document).ready(function () {
     }
     function listenDatapicker(){
         jQuery('.js-datepicker').datepicker({
-                    format: "dd.mm.yyyy",
                     todayHighlight: true,
                     autoclose: true
         });

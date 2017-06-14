@@ -235,7 +235,7 @@ class TaskController extends Controller
         parse_str($this->getRequest()->getContent(), $_PUT);
         if (isset($_PUT['id']) && isset($_PUT['date']) && $_PUT['date'] != '' ){
             $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($_PUT['id']);
-            $task->setCompletionDate(strtotime($_PUT['date']));
+            $task->setCompletionDate($_PUT['date']);
             $em = $this->getDoctrine()->getManager();
                 $em->flush();
         }
