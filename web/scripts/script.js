@@ -2,6 +2,9 @@ jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
         todayHighlight: true
     });
+    var today = new Date();
+    var todayMidnight = today.setHours(0,0,0,0)/1000;
+    $('#date_hidden_input').val(todayMidnight);
     calendar.on('changeDate', function() {
         var date = $('#date_hidden_input').val(
             calendar.datepicker('getDate')
@@ -16,8 +19,9 @@ jQuery(document).ready(function () {
             });
     });
     jQuery.ajax({
-        url:'http://localhost:8000/task/api/getall',
-        method: 'GET'
+        url:'http://localhost:8000/task/api/get',
+        method: 'GET',
+        data: {'date':  $('#date_hidden_input').val()}
     })
     .done(function(response){
         writeTasks(JSON.parse(response));
