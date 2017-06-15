@@ -11,6 +11,15 @@ jQuery(document).ready(function () {
     .done(function(response){
         writeTasks(JSON.parse(response));
     });
+    jQuery('#alltasks').on('click', function (event){
+        jQuery.ajax({
+            url:'http://localhost:8000/task/api/getall',
+            method: 'GET'
+        })
+        .done(function (response){
+            writeTasks(JSON.parse(response));
+        });       
+    });
     calendar.on('changeDate', function() {
         var date = $('#date_hidden_input').val(
             calendar.datepicker('getDate')
