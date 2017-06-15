@@ -2,9 +2,15 @@ jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
         todayHighlight: true
     });
-    var today = new Date();
-    var todayMidnight = today.setHours(0,0,0,0)/1000;
-    $('#date_hidden_input').val(todayMidnight);
+    $('#date_hidden_input').val(new Date().setHours(0,0,0,0)/1000);
+    jQuery.ajax({
+        url:'http://localhost:8000/task/api/get',
+        method: 'GET',
+        data: {'date':  $('#date_hidden_input').val()}
+    })
+    .done(function(response){
+        writeTasks(JSON.parse(response));
+    });
     calendar.on('changeDate', function() {
         var date = $('#date_hidden_input').val(
             calendar.datepicker('getDate')
@@ -17,14 +23,6 @@ jQuery(document).ready(function () {
             .done(function(response){
                 writeTasks(JSON.parse(response));
             });
-    });
-    jQuery.ajax({
-        url:'http://localhost:8000/task/api/get',
-        method: 'GET',
-        data: {'date':  $('#date_hidden_input').val()}
-    })
-    .done(function(response){
-        writeTasks(JSON.parse(response));
     }); 
     jQuery(document).on('click', '.taskdone', function(event){
         event.preventDefault();
