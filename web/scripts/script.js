@@ -2,11 +2,10 @@ jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
         todayHighlight: true
     });
-    $('#date_hidden_input').val(new Date().setHours(0,0,0,0)/1000);
     jQuery.ajax({
         url:'http://localhost:8000/task/api/get',
         method: 'GET',
-        data: {'date':  $('#date_hidden_input').val()}
+        data: {'date':  Date.parse(new Date(new Date().setHours(0,0,0,0)))/1000}
     })
     .done(function(response){
         writeTasks(JSON.parse(response));
