@@ -20,13 +20,13 @@ jQuery(document).ready(function () {
         });       
     });
     calendar.on('changeDate', function() {
-        var date = $('#date_hidden_input').val(
+        var tasksForDate = $('#date_hidden_input').val(
             calendar.datepicker('getDate')
         );
         jQuery.ajax({
                 url:'http://localhost:8000/task/api/get',
                 method: 'GET',
-                data: {'date': Date.parse(date.val())/1000}
+                data: {'date': Date.parse(tasksForDate.val())/1000}
             })
             .done(function(response){
                 writeTasks(JSON.parse(response));
@@ -94,7 +94,7 @@ jQuery(document).ready(function () {
             tasks.forEach(function(task){
                 var creationDate = new Date(task.creationDate * 1000);
                 var completionDate = new Date(task.completionDate * 1000);
-                var taskRow = jQuery('<tr id='+task.id+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons(task.id)+'');
+                var taskRow = jQuery('<tr id='+task.id+' data-task='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons(task.id)+'');
                 taskRow.appendTo(tbody);
             });
         }
