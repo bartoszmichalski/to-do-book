@@ -99,7 +99,6 @@ jQuery(document).ready(function () {
                 var completionDate = new Date(task.completionDate * 1000);
                 var taskRow = jQuery('<tr id='+task.id+' data-task-date='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons(task.id)+'');
                 taskRow.appendTo(tbody);
-                console.log(jQuery('#tasklist tr#'+task.id+'').data('taskDate'));
             });
         }
         listenDatapicker();
