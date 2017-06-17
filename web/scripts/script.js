@@ -2,13 +2,17 @@ jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
         todayHighlight: true
     });
+    $('#date_hidden_input').val(
+            Date.parse(new Date(new Date().setHours(0,0,0,0)))/1000
+    );
+    var choosenDate = $('#date_hidden_input').val();
     jQuery.ajax({
-        url:'http://localhost:8000/task/api/get',
-        method: 'GET',
-        data: {'date':  Date.parse(new Date(new Date().setHours(0,0,0,0)))/1000}
+        url:'http://localhost:8000/task/api/getall',
+        method: 'GET'
     })
     .done(function(response){
         writeTasks(JSON.parse(response));
+        jQuery('#tasklist tr:not([data-task-date='+choosenDate+'])').hide();
     });
     jQuery('#alltasks').on('click', function (event){
         jQuery.ajax({
@@ -71,8 +75,7 @@ jQuery(document).ready(function () {
                     writeTasks(JSON.parse(response));
                 });
             }
-        });
-        
+        });        
     });
     jQuery('#newBook').on('submit', function (event){
         event.preventDefault();
@@ -94,8 +97,9 @@ jQuery(document).ready(function () {
             tasks.forEach(function(task){
                 var creationDate = new Date(task.creationDate * 1000);
                 var completionDate = new Date(task.completionDate * 1000);
-                var taskRow = jQuery('<tr id='+task.id+' data-task='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons(task.id)+'');
+                var taskRow = jQuery('<tr id='+task.id+' data-task-date='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons(task.id)+'');
                 taskRow.appendTo(tbody);
+                console.log(jQuery('#tasklist tr#'+task.id+'').data('taskDate'));
             });
         }
         listenDatapicker();
