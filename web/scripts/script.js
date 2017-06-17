@@ -4,16 +4,16 @@ jQuery(document).ready(function () {
     });
     $('#date_hidden_input').val(
             Date.parse(new Date(new Date().setHours(0,0,0,0)))/1000
-    );
-    var choosenDate = $('#date_hidden_input').val();
+    );  
     jQuery.ajax({
         url:'http://localhost:8000/task/api/getall',
         method: 'GET'
     })
     .done(function(response){
         writeTasks(JSON.parse(response));
-        jQuery('#tasklist tr:not([data-task-date='+choosenDate+'])').hide();
+        hideTasksForOtherDays($('#date_hidden_input').val());
     });
+    
     jQuery('#alltasks').on('click', function (event){
         jQuery.ajax({
             url:'http://localhost:8000/task/api/getall',
@@ -23,17 +23,18 @@ jQuery(document).ready(function () {
             writeTasks(JSON.parse(response));
         });       
     });
+    
     calendar.on('changeDate', function() {
-        var tasksForDate = $('#date_hidden_input').val(
-            calendar.datepicker('getDate')
+        $('#date_hidden_input').val(
+            Date.parse(calendar.datepicker('getDate'))/1000
         );
         jQuery.ajax({
-                url:'http://localhost:8000/task/api/get',
-                method: 'GET',
-                data: {'date': Date.parse(tasksForDate.val())/1000}
+                url:'http://localhost:8000/task/api/getall',
+                method: 'GET'
             })
             .done(function(response){
                 writeTasks(JSON.parse(response));
+                hideTasksForOtherDays($('#date_hidden_input').val());            
             });
     }); 
     jQuery(document).on('click', '.taskdone', function(event){
@@ -53,8 +54,10 @@ jQuery(document).ready(function () {
         })
         .done(function(response){
             writeTasks(JSON.parse(response));
+            hideTasksForOtherDays($('#date_hidden_input').val());
         });
     });
+    
     jQuery(document).on('click', '.changeDate', function(event){
         $('.changeDate').show();
         $(this).hide();
@@ -73,6 +76,7 @@ jQuery(document).ready(function () {
                 })
                 .done(function(response){
                     writeTasks(JSON.parse(response));
+                    hideTasksForOtherDays($('#date_hidden_input').val());
                 });
             }
         });        
@@ -80,7 +84,7 @@ jQuery(document).ready(function () {
     jQuery('#newBook').on('submit', function (event){
         event.preventDefault();
         var newDateForm = jQuery(this).serialize();
-        jQuery('input').val('');
+        jQuery('#newBook input').val('');
         jQuery.ajax({
             url: 'http://localhost:8000/task/api/new',
             method: 'POST',
@@ -88,6 +92,7 @@ jQuery(document).ready(function () {
         })
         .done(function (response){
             writeTasks(JSON.parse(response));
+            hideTasksForOtherDays($('#date_hidden_input').val());
         });       
     });
     function writeTasks(tasks) {
@@ -97,13 +102,13 @@ jQuery(document).ready(function () {
             tasks.forEach(function(task){
                 var creationDate = new Date(task.creationDate * 1000);
                 var completionDate = new Date(task.completionDate * 1000);
-                var taskRow = jQuery('<tr id='+task.id+' data-task-date='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons(task.id)+'');
+                var taskRow = jQuery('<tr id='+task.id+' data-task-date='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toLocaleDateString('pl-PL')+'</td><td>'+ completionDate.toLocaleDateString('pl-PL')+'</td>'+writeActionButtons());
                 taskRow.appendTo(tbody);
             });
         }
         listenDatapicker();
     }
-    function writeActionButtons(id){
+    function writeActionButtons(){
         return '<td><button class="btn btn-primary taskdone" type="submit">Done</button></td><td><button class="btn btn-primary changeDate"  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
     function writeChangeDateInput(){
@@ -114,5 +119,8 @@ jQuery(document).ready(function () {
                     todayHighlight: true,
                     autoclose: true
         });
+    }
+    function hideTasksForOtherDays(tasksForDate) {
+        jQuery('#tasklist tr:not([data-task-date='+tasksForDate+'])').hide();
     }
 });
