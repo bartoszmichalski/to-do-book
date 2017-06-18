@@ -1,5 +1,6 @@
 jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
+        weekStart: 1,
         format: 'dd.mm.yyyy',
         todayHighlight: true
     });
@@ -119,6 +120,7 @@ jQuery(document).ready(function () {
     }
     function listenDatapicker(){
         jQuery('.js-datepicker').datepicker({
+                    weekStart: 1,
                     format: 'dd.mm.yyyy',
                     todayHighlight: true,
                     autoclose: true
