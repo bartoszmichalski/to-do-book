@@ -1,5 +1,6 @@
 jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
+        format: 'dd.mm.yyyy',
         todayHighlight: true
     });
     $('#date_hidden_input').val(
@@ -15,6 +16,7 @@ jQuery(document).ready(function () {
     });
     
     jQuery('#alltasks').on('click', function (event){
+        $('#date_hidden_input').val(0); 
         jQuery.ajax({
             url:'http://localhost:8000/task/api/getall',
             method: 'GET'
@@ -83,6 +85,7 @@ jQuery(document).ready(function () {
     });
     jQuery('#newBook').on('submit', function (event){
         event.preventDefault();
+        event.stopImmediatePropagation();
         var newDateForm = jQuery(this).serialize();
         jQuery('#newBook input').val('');
         jQuery.ajax({
@@ -116,11 +119,14 @@ jQuery(document).ready(function () {
     }
     function listenDatapicker(){
         jQuery('.js-datepicker').datepicker({
+                    format: 'dd.mm.yyyy',
                     todayHighlight: true,
                     autoclose: true
         });
     }
     function hideTasksForOtherDays(tasksForDate) {
-        jQuery('#tasklist tr:not([data-task-date='+tasksForDate+'])').hide();
+        if (tasksForDate != 0) {
+            jQuery('#tasklist tr:not([data-task-date='+tasksForDate+'])').hide();
+        }
     }
 });
