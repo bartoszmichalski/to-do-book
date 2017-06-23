@@ -15,8 +15,8 @@ security:
         main:
             pattern: ^/
             form_login:
-                default_target_path: /
-                always_use_default_target_path: false
+#                default_target_path: /
+#                always_use_default_target_path: false
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
