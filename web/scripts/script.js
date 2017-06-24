@@ -1,7 +1,7 @@
 jQuery(document).ready(function () {
     var calendar = $('#datepicker').datepicker({
         weekStart: 1,
-        format: 'dd.mm.yyyy',
+        format: 'yyyy-mm-dd',
         todayHighlight: true
     });
     $('#date_hidden_input').val(
@@ -116,12 +116,12 @@ jQuery(document).ready(function () {
         return '<td><button class="btn btn-primary taskdone" type="submit">Done</button></td><td><button class="btn btn-primary changeDate"  name="changeDate" type="submit">Change Completion Date</button></td>';
     }
     function writeChangeDateInput(){
-        return '<div class="form-group "><label class="control-label requiredField" for="newDate">Completion Date<span class="asteriskField">*</span><input class="form-control js-datepicker" id="newDate" name="newDate" placeholder="DD/MM/YYYY" type="text" required/></label><button class="btn btn-primary change"  name="change" type="submit">Change</button></div>';
+        return '<div class="form-group "><label class="control-label requiredField" for="newDate">Completion Date<span class="asteriskField">*</span><input class="form-control js-datepicker" id="newDate" name="newDate" placeholder="YYYY-MM-DD" type="text" required/></label><button class="btn btn-primary change"  name="change" type="submit">Change</button></div>';
     }
     function listenDatapicker(){
         jQuery('.js-datepicker').datepicker({
                     weekStart: 1,
-                    format: 'dd.mm.yyyy',
+                    format: 'yyyy-mm-dd',
                     todayHighlight: true,
                     autoclose: true
         });
