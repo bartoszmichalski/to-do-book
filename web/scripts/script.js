@@ -8,7 +8,7 @@ jQuery(document).ready(function () {
             Date.parse(new Date(new Date().setHours(0,0,0,0)))/1000
     );  
     jQuery.ajax({
-        url:'http://localhost:8000/task/api/getall',
+        url:'/task/api/getall',
         method: 'GET'
     })
     .done(function(response){
