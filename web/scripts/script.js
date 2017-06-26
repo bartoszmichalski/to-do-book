@@ -19,7 +19,7 @@ jQuery(document).ready(function () {
     jQuery('#alltasks').on('click', function (event){
         $('#date_hidden_input').val(0); 
         jQuery.ajax({
-            url:'http://localhost:8000/task/api/getall',
+            url: '/task/api/getall',
             method: 'GET'
         })
         .done(function (response){
@@ -32,7 +32,7 @@ jQuery(document).ready(function () {
             Date.parse(calendar.datepicker('getDate'))/1000
         );
         jQuery.ajax({
-                url:'http://localhost:8000/task/api/getall',
+                url: '/task/api/getall',
                 method: 'GET'
             })
             .done(function(response){
@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
             .children()
             .slideUp( function() { $(this).closest('tr').remove(); });
         jQuery.ajax({
-            url:'http://localhost:8000/task/api/done',
+            url: '/task/api/done',
             method: 'PUT',
             data: {'id':taskId}
         })
@@ -71,9 +71,10 @@ jQuery(document).ready(function () {
         listenDatapicker();
         jQuery(document).on('click', '.change', function(event){
             var newDate = Date.parse($('#newDate').val())/1000;
+            console.log(newDate);
             if (typeof newDate === 'number' && newDate > 1 ) {
                 jQuery.ajax({
-                    url:'http://localhost:8000/task/api/changedate',
+                    url: '/task/api/changedate',
                     method: 'PUT',
                     data: {'id':$(this).parent().parent().parent().attr('id'), 'date': newDate}
                 })
@@ -90,7 +91,7 @@ jQuery(document).ready(function () {
         var newDateForm = jQuery(this).serialize();
         jQuery('#newBook input').val('');
         jQuery.ajax({
-            url: 'http://localhost:8000/task/api/new',
+            url: '/task/api/new',
             method: 'POST',
             data: newDateForm
         })
