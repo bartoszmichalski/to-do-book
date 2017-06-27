@@ -13,7 +13,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('base.html.twig');
+        $user = $this->getUser();
+        if ($user) {
+            return $this->render('base.html.twig');
+        } else {
+            return $this->redirectToRoute('fos_user_security_login');
+        }        
     }
 }
