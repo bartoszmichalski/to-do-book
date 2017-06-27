@@ -70,13 +70,12 @@ jQuery(document).ready(function () {
         event.stopImmediatePropagation();
         listenDatapicker();
         jQuery(document).on('click', '.change', function(event){
-            var newDate = Date.parse($('#newDate').val())/1000;
-            console.log(newDate);
-            if (typeof newDate === 'number' && newDate > 1 ) {
+            var newDateMidnight = Date.parse(new Date(new Date($('#newDate').val()).setHours(0,0,0,0)))/1000;
+            if (typeof newDateMidnight === 'number' && newDateMidnight > 1 ) {
                 jQuery.ajax({
                     url: '/task/api/changedate',
                     method: 'PUT',
-                    data: {'id':$(this).parent().parent().parent().attr('id'), 'date': newDate}
+                    data: {'id':$(this).parent().parent().parent().attr('id'), 'date': newDateMidnight}
                 })
                 .done(function(response){
                     writeTasks(JSON.parse(response));
