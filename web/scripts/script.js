@@ -104,9 +104,7 @@ jQuery(document).ready(function () {
         tbody.children().remove();
         if (tasks !== null) {
             tasks.forEach(function(task){
-                var creationDate = new Date(task.creationDate * 1000);
-                var completionDate = new Date(task.completionDate * 1000);
-                var taskRow = jQuery('<tr id='+task.id+' data-task-date='+task.completionDate+'><td>'+task.description+'</td><td>'+ creationDate.toISOString().slice(0,10)+'</td><td>'+ completionDate.toISOString().slice(0,10)+'</td>'+writeActionButtons());
+                var taskRow = jQuery('<tr id='+task.id+' data-task-date='+task.completionDate+'><td>'+task.description+'</td><td>'+ formatDateFromTimestamp(task.creationDate * 1000)+'</td><td>'+formatDateFromTimestamp(task.completionDate * 1000)+'</td>'+writeActionButtons());
                 taskRow.appendTo(tbody);
             });
         }
@@ -130,5 +128,13 @@ jQuery(document).ready(function () {
         if (tasksForDate != 0) {
             jQuery('#tasklist tr:not([data-task-date='+tasksForDate+'])').hide();
         }
+    }
+    function formatDateFromTimestamp(timestamp) {
+        var date = new Date (timestamp);
+        var day = date.getDate();
+        var month = date.getMonth();
+        month++;
+        var year = date.getFullYear();
+        return year+'-'+month+'-'+day;
     }
 });
