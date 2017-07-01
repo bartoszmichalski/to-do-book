@@ -135,6 +135,13 @@ jQuery(document).ready(function () {
         var month = date.getMonth();
         month++;
         var year = date.getFullYear();
-        return year+'-'+month+'-'+day;
+        return year+'-'+addZeroPrefix(month)+'-'+addZeroPrefix(day);
+    }
+    function addZeroPrefix(parameter){
+        if (parameter < 10) {
+            return '0'+parameter;
+        } else {
+            return parameter;
+        }
     }
 });
