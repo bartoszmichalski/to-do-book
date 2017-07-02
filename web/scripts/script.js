@@ -126,7 +126,7 @@ jQuery(document).ready(function () {
     }
     function hideTasksForOtherDays(tasksForDate) {
         if (tasksForDate != 0) {
-            jQuery('#tasklist tr:not([data-task-date='+tasksForDate+'])').hide();
+            jQuery('#tasklist tbody tr:not([data-task-date='+tasksForDate+'])').hide();
         }
     }
     function formatDateFromTimestamp(timestamp) {
