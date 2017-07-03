@@ -131,11 +131,7 @@ jQuery(document).ready(function () {
     }
     function formatDateFromTimestamp(timestamp) {
         var date = new Date (timestamp);
-        var day = date.getDate();
-        var month = date.getMonth();
-        month++;
-        var year = date.getFullYear();
-        return year+'-'+addZeroPrefix(month)+'-'+addZeroPrefix(day);
+        return date.getFullYear()+'-'+addZeroPrefix(date.getMonth()+1)+'-'+addZeroPrefix(date.getDate());
     }
     function addZeroPrefix(parameter){
         if (parameter < 10) {
