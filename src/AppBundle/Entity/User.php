@@ -41,6 +41,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->tasks = new ArrayCollection();
+        $this->token = substr(str_shuffle("0123456789abcdefghijklmnopqrstvwxyz"), 0, 11);
     }
 
     /**
