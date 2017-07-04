@@ -56,6 +56,10 @@ class Task implements JsonSerializable
      */
     private $user;
 
+    public function __construct()
+    {
+        $this->done = 0;
+    }
 
     /**
      * Get id
@@ -167,5 +171,28 @@ class Task implements JsonSerializable
                 'creationDate' => $this->getCreationDate(),
                 'completionDate' => $this->getCompletionDate()
         ];
+    }
+
+    /**
+     * Set done
+     *
+     * @param boolean $done
+     * @return Task
+     */
+    public function setDone($done)
+    {
+        $this->done = $done;
+
+        return $this;
+    }
+
+    /**
+     * Get done
+     *
+     * @return boolean 
+     */
+    public function getDone()
+    {
+        return $this->done;
     }
 }

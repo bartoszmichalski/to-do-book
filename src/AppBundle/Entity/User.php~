@@ -29,6 +29,13 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Task", mappedBy="user")
      */
     private $tasks;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string")
+     */
+    private $token;
 
     public function __construct()
     {

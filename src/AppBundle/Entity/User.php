@@ -29,6 +29,13 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Task", mappedBy="user")
      */
     private $tasks;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string")
+     */
+    private $token;
 
     public function __construct()
     {
@@ -67,5 +74,28 @@ class User extends BaseUser
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string 
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }
