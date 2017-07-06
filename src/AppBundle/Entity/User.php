@@ -11,6 +11,7 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\Task;
 
 /**
 * @ORM\Entity
@@ -50,7 +51,7 @@ class User extends BaseUser
      * @param \AppBundle\Entity\Task $tasks
      * @return User
      */
-    public function addTask(\AppBundle\Entity\Task $tasks)
+    public function addTask(Task $tasks)
     {
         $this->tasks[] = $tasks;
 
@@ -62,7 +63,7 @@ class User extends BaseUser
      *
      * @param \AppBundle\Entity\Task $tasks
      */
-    public function removeTask(\AppBundle\Entity\Task $tasks)
+    public function removeTask(Task $tasks)
     {
         $this->tasks->removeElement($tasks);
     }
