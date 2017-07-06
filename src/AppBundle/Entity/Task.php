@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
+use AppBundle\Entity\User;
 
 /**
  * Task
@@ -146,7 +147,7 @@ class Task implements JsonSerializable
      * @param \AppBundle\Entity\User $user
      * @return Task
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(User $user)
     {
         $this->user = $user;
 
