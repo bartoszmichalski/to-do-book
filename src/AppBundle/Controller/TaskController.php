@@ -218,7 +218,7 @@ class TaskController extends Controller
             $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($_PUT['id']);
             $task->setDone(true);
             $em = $this->getDoctrine()->getManager();
-                $em->flush();
+            $em->flush();
         }
         $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
@@ -226,7 +226,7 @@ class TaskController extends Controller
     }
     
     /**
-     * Mark task as done from API.
+     * Change date of task from API.
      *
      * @Route("/api/changedate", name="task_api_changedate")
      */
@@ -237,10 +237,12 @@ class TaskController extends Controller
             $task = $this->getDoctrine()->getRepository('AppBundle:Task')->find($_PUT['id']);
             $task->setCompletionDate($_PUT['date']);
             $em = $this->getDoctrine()->getManager();
-                $em->flush();
+            $em->flush();
         }
         $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
+        
         return new Response('');
     }
+    
 }
