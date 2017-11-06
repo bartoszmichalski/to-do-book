@@ -150,7 +150,8 @@ class TaskController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('task_delete', array('id' => $task->getId())))
             ->setMethod('DELETE')
-            ->getForm();
+            ->getForm()
+        ;
     }
     
     /**
@@ -166,7 +167,7 @@ class TaskController extends Controller
             $task->setDescription($request->request->get('task'));
             $task->setCompletionDate(strtotime($request->request->get('date')));
             $task->setCreationDate(time());
-            $user = $this->getUser();
+            $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(1);
             $task->setUser($user);
             $em = $this->getDoctrine()->getManager();
                 $em->persist($task);
@@ -200,8 +201,7 @@ class TaskController extends Controller
      */
     public function getAllTaskAction()
     {
-        $user = $this->getUser();
-        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('user' => $user, 'done' => 0), array('completionDate' => 'ASC'));       
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));       
         echo(json_encode($tasks));
         return new Response('');
     }
