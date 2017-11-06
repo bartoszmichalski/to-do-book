@@ -1,4 +1,7 @@
 jQuery(document).ready(function () {
+    var tokenField = $('.token');
+    var tokenValue = tokenField.data('token');
+    console.log(tokenValue);
     var calendar = $('#datepicker').datepicker({
         weekStart: 1,
         format: 'yyyy-mm-dd',
