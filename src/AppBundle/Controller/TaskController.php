@@ -167,13 +167,16 @@ class TaskController extends Controller
             $task->setDescription($request->request->get('task'));
             $task->setCompletionDate(strtotime($request->request->get('date')));
             $task->setCreationDate(time());
-            $user = $this->getDoctrine()->getRepository('AppBundle:User')->find(1);
+            $user = $this->getUser();
             $task->setUser($user);
             $em = $this->getDoctrine()->getManager();
                 $em->persist($task);
                 $em->flush();
         }
-        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array(
+                'user' => $user,
+                'done' => 0,
+        ), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         return new Response('');
     }
@@ -187,7 +190,8 @@ class TaskController extends Controller
     public function getTaskAction(Request $request)
     {
         $date = $request->query->get('date');
-        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0,  'completionDate' => $date), array('completionDate' => 'ASC'));
+        $user = $this->getUser();
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('user' => $user, 'done' => 0,  'completionDate' => $date), array('completionDate' => 'ASC'));
         echo(json_encode($tasks));
         return new Response('');
     }
@@ -201,7 +205,8 @@ class TaskController extends Controller
      */
     public function getAllTaskAction()
     {
-        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));       
+        $user = $this->getUser();
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('user' => $user, 'done' => 0), array('completionDate' => 'ASC'));       
         echo(json_encode($tasks));
         return new Response('');
     }
@@ -220,7 +225,8 @@ class TaskController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
-        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
+        $user = $this->getUser();
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('user' => $user, 'done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         return new Response('');
     }
@@ -239,7 +245,8 @@ class TaskController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
-        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('done' => 0), array('completionDate' => 'ASC'));
+        $user = $this->getUser();
+        $allTasks = $this->getDoctrine()->getRepository('AppBundle:Task')->findby(array('user' => $user,'done' => 0), array('completionDate' => 'ASC'));
         echo(json_encode($allTasks));
         
         return new Response('');
